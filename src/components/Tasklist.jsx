@@ -8,6 +8,8 @@ import { deleteTask, updateTask } from "../redux/actions";
 
 const TaskList = ({ tasks, deleteTask, updateTask }) => {
   const [editedTaskName, setEditedTaskName] = useState("");
+  const [editedTaskEmail, setEditedTaskEmail] = useState("");
+  const [editedTaskAge, setEditedTaskAge] = useState("");
   const [editingTaskId, setEditingTaskId] = useState(null);
 
   const handleDelete = (taskId) => {
@@ -19,18 +21,28 @@ const TaskList = ({ tasks, deleteTask, updateTask }) => {
     setEditingTaskId(null);
   };
 
-  const handleEdit = (taskId, taskName) => {
+  const handleEdit = (taskId, taskName, taskEmail, taskAge) => {
     setEditingTaskId(taskId);
     setEditedTaskName(taskName);
+    setEditedTaskEmail(taskEmail);
+    setEditedTaskAge(taskAge);
   };
 
   const handleInputChange = (e) => {
     setEditedTaskName(e.target.value);
   };
+  const handleInputChangeEmail = (e) => {
+    setEditedTaskEmail(e.target.value);
+  };
+  const handleInputChangeAge = (e) => {
+    setEditedTaskAge(e.target.value);
+  };
 
   const handleCancelEdit = () => {
     setEditingTaskId(null);
     setEditedTaskName("");
+    setEditedTaskEmail("");
+    setEditedTaskAge("");
   };
 
   return (
@@ -53,13 +65,28 @@ const TaskList = ({ tasks, deleteTask, updateTask }) => {
                 <input
                   className="input"
                   type="text"
+                  placeholder="Edit name"
                   value={editedTaskName}
                   onChange={handleInputChange}
+                />
+                <input
+                  className="input"
+                  type="email"
+                  placeholder="Edit email"
+                  value={editedTaskEmail}
+                  onChange={handleInputChangeEmail}
+                />
+                <input
+                  className="input"
+                  type="number"
+                  placeholder="Edit age"
+                  value={editedTaskAge}
+                  onChange={handleInputChangeAge}
                 />
                 <button
                   className="btn"
                   onClick={() =>
-                    handleUpdate(task.id, { name: editedTaskName })
+                    handleUpdate(task.id, { name: editedTaskName, email: editedTaskEmail, age: editedTaskAge, })
                   }
                 >
                   Save
